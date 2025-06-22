@@ -1,0 +1,15 @@
+{
+  "working_directory": ".",
+  "scripts": {
+    "hello": {
+      "name": "hello",
+      "path": "./scripts/hello.sh",
+      "description": "Simple hello world script",
+      "arguments": [],
+      "timeout": 30
+    }
+  },
+  "docker_image": "ubuntu:22.04",
+  "container_name": "mcp-script-runner",
+  "mount_path": "/workspace"
+}

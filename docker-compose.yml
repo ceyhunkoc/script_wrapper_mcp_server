@@ -1,0 +1,33 @@
+services:
+  mcp-script-runner:
+    build: .
+    container_name: mcp-script-runner
+    volumes:
+      # Mount the current directory to /workspace so scripts can be accessed
+      - .:/workspace
+      # Optional: Mount Docker socket if you need Docker-in-Docker capabilities
+      # - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /workspace
+    environment:
+      - PYTHONPATH=/workspace/src
+      - TERM=xterm-256color
+    stdin_open: true
+    tty: true
+    # The container will start the MCP server by default via entrypoint
+    # Use 'docker-compose run --rm mcp-script-runner bash' for interactive shell
+
+  # Interactive shell service for debugging/testing
+  shell:
+    build: .
+    container_name: mcp-script-runner-shell
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    environment:
+      - PYTHONPATH=/workspace/src
+      - TERM=xterm-256color
+    stdin_open: true
+    tty: true
+    command: ["bash"]
+    profiles:
+      - debug
